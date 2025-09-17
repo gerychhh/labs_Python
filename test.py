@@ -2,7 +2,7 @@ import pygame
 import sys
 
 from pygame.examples.music_drop_fade import starting_pos
-
+###########
 pygame.init()
 
 screen = pygame.display.set_mode((500, 500))
