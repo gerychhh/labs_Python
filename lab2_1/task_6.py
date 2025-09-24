@@ -1,10 +1,22 @@
-from collections import Counter
+myStr = input("input list: ")
 
-myList = list(map(float, input("Enter a list: ").split()))
+myList = list(myStr)
 
-myList_count = Counter(myList)
+myCount = {}
 
-for i, c in myList_count.items():
-    if c != 1:
-        myList.remove(i)
-print(f"unique list: {myList}")
+newList =[]
+
+for i in myList:
+    if i not in myCount:
+        myCount[i] = 1
+    else:
+        myCount[i] += 1
+
+
+for i, c in myCount.items():
+    if c == 1:
+        newList.append(i)
+
+myList = newList
+
+print(f"your new list with unique numbers: {myList}")
