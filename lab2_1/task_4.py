@@ -1,5 +1,5 @@
-digits_1 = set(map(float, input().split()))
-digits_2 = set(map(float, input().split()))
+digits_1 = set(map(float, input("set1: ").split()))
+digits_2 = set(map(float, input("set2: ").split()))
 
 print("1. Числа, которые присутствуют в обоих наборах одновременно. ")
 print(digits_1 & digits_2)
