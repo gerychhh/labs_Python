@@ -1,15 +1,20 @@
-from collections import Counter
+myStr = input("input list: ")
 
-myList = list(map(str, input("Enter a list: ").split()))
+myList = list(myStr)
 
-myList_count = Counter(myList)
+myCount = {}
 
 myStr = ""
 
-for i, c in myList_count.items():
-    myStr += str(i)+str(c)
+##print(myList)
 
-print("В виде ключ значение")
-print(myList_count)
-print("В виде строки")
-print(myStr)
+for i in myList:
+    if i not in myCount:
+        myCount[i] = 1
+    else:
+        myCount[i] += 1
+
+for i, c in myCount.items():
+    myStr += str(i) + str(c)
+
+print(f"your short string: {myStr}")
