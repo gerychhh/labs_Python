@@ -1,8 +1,11 @@
 number = int(input("Enter a number: "))
-summ = 0
 
 if number % 7 == 0:
     print("MAGIC NUMBER")
 else:
-    summ = sum(map(int, str(number)))
+    summ = 0
+    n = number
+    while n > 0:
+        summ += n % 10
+        n //= 10
     print(f"Summ of digits {summ}")
