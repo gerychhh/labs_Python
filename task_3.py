@@ -1,6 +1,4 @@
 from datetime import datetime
-from traceback import print_tb
-
 
 def log_calls(filename):
     def decorator(func):
@@ -15,7 +13,6 @@ def log_calls(filename):
 def add_numbers(x, y):
     return x + y
 
-a = int(input("Слогаемое A"))
-b = int(input("Слогаемое B"))
-print("Ответ A+B")
-print(add_numbers(a, b))
+a = int(input("Введите первое число: "))
+b = int(input("Введите второе число: "))
+print("Сумма чисел:", add_numbers(a, b))
