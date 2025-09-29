@@ -8,6 +8,6 @@ def flatten_list(lst):
         else:
             i += 1
 
-user_list = eval(input())
+user_list = eval(input("ведите не плоский список по типу [1, 2, 3, [4], 5, [6, [7, [], 8, [9]]]]: "))
 flatten_list(user_list)
 print(user_list)
