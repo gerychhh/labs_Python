@@ -1,11 +1,8 @@
-str = input("Enter a string: ")
+s = input("Enter a string: ")
 
-str = str.lower()
+s = s.lower()
 
-str_copy = "".join(reversed(str))
-
-if str == str_copy:
+if s == s[::-1]:
     print("Палиндром")
 else:
     print("Не палиндром")
-
