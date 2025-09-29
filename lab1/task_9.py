@@ -12,18 +12,15 @@ else:
     part3 = ip[p2+1:p3]
     part4 = ip[p3+1:]
 
-    try:
-        n1 = int(part1)
-        n2 = int(part2)
-        n3 = int(part3)
-        n4 = int(part4)
+    n1 = int(part1)
+    n2 = int(part2)
+    n3 = int(part3)
+    n4 = int(part4)
 
-        if (0 <= n1 <= 255 and
+    if (0 <= n1 <= 255 and
             0 <= n2 <= 255 and
             0 <= n3 <= 255 and
             0 <= n4 <= 255):
-            print("Good ip")
-        else:
-            print("Bad ip")
-    except:
+        print("Good ip")
+    else:
         print("Bad ip")
