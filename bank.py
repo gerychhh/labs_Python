@@ -1,2 +1,2 @@
 class Bank:
-    users1 = ()
+    users = ()
