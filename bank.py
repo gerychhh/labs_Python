@@ -1,5 +1,6 @@
 import random
 from datetime import datetime
+from pickle import FALSE
 
 
 class Bank:
@@ -29,3 +30,15 @@ class BankAccount:
         self.currency = currency
         self.balance = balance
         self.open_date = open_date if open_date is not None else datetime.now()
+
+    def deposit(self, amount):
+        if amount < 0:
+            raise Exception("Нельзя пополнить на отрицательное число")
+        self.balance += amount
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise Exception("Недостаточно валюты на балансе")
+        if amount < 0:
+            raise Exception("Нельзя выводить отрицательное число")
+        self.balance -= amount
