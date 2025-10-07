@@ -1,0 +1,21 @@
+{
+    "name": "Best Of The Best Bank",
+    "users": {
+        "440443": {
+            "id": 440443,
+            "name": "\u0413\u0435\u0440\u043c\u0430\u043d",
+            "accounts_by_currency": {
+                "BYN": 4213
+            }
+        }
+    },
+    "accounts": {
+        "4213": {
+            "id": 4213,
+            "owner_id": 440443,
+            "currency": "BYN",
+            "balance": 123456.0,
+            "open_date": "2025-10-07T23:58:20.951902"
+        }
+    }
+}

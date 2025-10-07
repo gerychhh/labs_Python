@@ -1,0 +1,15 @@
+{
+    "client_id": 440443,
+    "client_name": "\u0413\u0435\u0440\u043c\u0430\u043d",
+    "accounts": [
+        {
+            "account_id": 4213,
+            "currency": "BYN",
+            "balance": 123456.0,
+            "open_date": "2025-10-07T23:58:20.951902"
+        }
+    ],
+    "total_balances": {
+        "BYN": 123456.0
+    }
+}
