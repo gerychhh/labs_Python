@@ -1,6 +1,7 @@
 import random
 from datetime import datetime
 import json
+from traceback import print_tb
 
 
 class Bank:
@@ -195,6 +196,33 @@ class Bank:
         except FileNotFoundError:
             print(f"Файл {filename} не найден. Создан новый банк.")
 
+    def view_all_accounts_by_client_id(self, curr_user):
+        counter2 = 0
+        for c in self.accounts.values():
+            if c.owner_id == curr_user.id:
+                counter2 += 1
+                print(f"{counter2}. ID счета: {c.id}, Баланс: {c.balance}, Валюта: {c.currency}, Открыт: {c.open_date}")
+        if counter2 == 0:
+            print(f"Нет открытых счетов у {curr_user.name}")
+        else:
+            print(f"Всего насчитано {counter2} счетов у {curr_user.name}")
+
+    def view_all(self, id_client=None):
+        if id_client is None:
+            print(f"Всего {len(self.users)} пользователей")
+            counter = 1
+            for i, client in self.users.items():
+                print(f"{counter}. ID: {i}, Имя: {client.name}")
+                print(f"Счета {client.name}:")
+                self.view_all_accounts_by_client_id(client)
+                counter += 1
+        else:
+            if id_client in self.users:
+                client = self.users[id_client]
+                print(f"Имя: {client.name}")
+                self.view_all_accounts_by_client_id(client)
+            else:
+                print("Клиент не найден")
 
 class Client:
     def __init__(self, id, name="Bob", accounts_by_currency=None):
@@ -286,6 +314,9 @@ def run_bank_interface(bank):
                 bank.transfer(client_id, from_id, to_id, amount)
 
             elif choice == "7":
+                my_bank.view_all()
+
+            elif choice == "8":
                 client_id = int(input("Введите ваш ID: "))
                 bank.get_statement(client_id)
 
