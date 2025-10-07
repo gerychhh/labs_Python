@@ -3,6 +3,20 @@ from datetime import datetime
 import json
 from traceback import print_tb
 
+def TimerDebug(func):
+    def wrapper(*args, **kwargs):
+        if debugMode:
+            start = datetime.now()
+            result = func(*args, **kwargs)
+            end = datetime.now()
+            elapsed = (end - start).total_seconds()
+            print(f"\n \t\t Функция '{func.__name__}' выполнена за {elapsed:.6f} секунд \n")
+            return result
+        else:
+            return func(*args, **kwargs)
+    return wrapper
+
+
 
 class Bank:
     def __init__(self, name_of_bank="Best Of The Best Bank", users_of_bank = None, accounts_of_bank = None):
@@ -10,6 +24,7 @@ class Bank:
         self.users = users_of_bank if users_of_bank is not None else {}
         self.accounts = accounts_of_bank if accounts_of_bank is not None else {}
 
+    @TimerDebug
     def create_account(self, name):
         while True:
             client_id = random.randint(1, 1000000)
@@ -20,6 +35,7 @@ class Bank:
         self.users[client_id] = new_client
         return client_id
 
+    @TimerDebug
     def open_account(self, client_id, currency="BYN"):
         if client_id not in self.users:
             raise Exception("Клиента не сущетсвует (id)")
@@ -38,6 +54,7 @@ class Bank:
         client.accounts_by_currency[currency] = bank_account.id
         return bank_account.id
 
+    @TimerDebug
     def close_account(self, client_id, account_id):
         if client_id not in self.users:
             raise Exception("Нет пользователя с таким id")
@@ -56,6 +73,7 @@ class Bank:
         del self.accounts[account_id]
         del client.accounts_by_currency[bank_account.currency]
 
+    @TimerDebug
     def deposit(self, client_id, account_id, amount):
         if client_id not in self.users:
             raise Exception("Клиент с таким ID не найден")
@@ -71,6 +89,7 @@ class Bank:
         account.deposit(amount)
         print(f"Счет {account_id} успешно пополнен на {amount} {account.currency}. Новый баланс: {account.balance} {account.currency}")
 
+    @TimerDebug
     def withdraw(self, client_id, account_id, amount):
         if client_id not in self.users:
             raise Exception("Клиент с таким ID не найден")
@@ -87,6 +106,7 @@ class Bank:
 
         print(f"Со счета {account_id} снято {amount} {account.currency}. Новый баланс: {account.balance} {account.currency}")
 
+    @TimerDebug
     def transfer(self, client_id, from_account_id, to_account_id, amount):
         if client_id not in self.users:
             raise Exception("Клиент с таким ID не найден")
@@ -113,6 +133,7 @@ class Bank:
         to_account.deposit(amount)
         print(f"Перевод {amount} {from_account.currency} выполнен с счета {from_account_id} на счет {to_account_id}")
 
+    @TimerDebug
     def get_statement(self, client_id):
         if client_id not in self.users:
             raise Exception("Клиент с таким ID не найден")
@@ -146,6 +167,7 @@ class Bank:
         print(f"Выписка сохранена в файл {filename}")
         return statement
 
+    @TimerDebug
     def save_to_file(self, filename = "bank_data.json"):
         data = {"name" : self.name, "users" : {}, "accounts": {}}
         for client_id, client in self.users.items():
@@ -168,6 +190,7 @@ class Bank:
             json.dump(data, f, indent=4)
         print(f"Банк сохранен в файл {filename}")
 
+    @TimerDebug
     def load_from_file(self, filename="bank_data.json"):
         try:
             with open(filename, "r") as f:
@@ -196,17 +219,19 @@ class Bank:
         except FileNotFoundError:
             print(f"Файл {filename} не найден. Создан новый банк.")
 
+    @TimerDebug
     def view_all_accounts_by_client_id(self, curr_user):
         counter2 = 0
         for c in self.accounts.values():
             if c.owner_id == curr_user.id:
                 counter2 += 1
-                print(f"{counter2}. ID счета: {c.id}, Баланс: {c.balance}, Валюта: {c.currency}, Открыт: {c.open_date}")
+                print(f"\t {counter2}. ID счета: {c.id}, Баланс: {c.balance}, Валюта: {c.currency}, Открыт: {c.open_date}")
         if counter2 == 0:
-            print(f"Нет открытых счетов у {curr_user.name}")
+            print(f"\t Нет открытых счетов у {curr_user.name}")
         else:
-            print(f"Всего насчитано {counter2} счетов у {curr_user.name}")
+            print(f"\t Всего насчитано {counter2} счетов у {curr_user.name}")
 
+    @TimerDebug
     def view_all(self, id_client=None):
         if id_client is None:
             print(f"Всего {len(self.users)} пользователей")
@@ -244,11 +269,13 @@ class BankAccount:
         self.balance = balance
         self.open_date = open_date if open_date is not None else datetime.now()
 
+    @TimerDebug
     def deposit(self, amount):
         if amount < 0:
             raise Exception("Нельзя пополнить на отрицательное число")
         self.balance += amount
 
+    @TimerDebug
     def withdraw(self, amount):
         if amount > self.balance:
             raise Exception("Недостаточно валюты на балансе")
@@ -256,6 +283,7 @@ class BankAccount:
             raise Exception("Нельзя выводить отрицательное число")
         self.balance -= amount
 
+@TimerDebug
 def run_bank_interface(bank):
     print(f"Добро пожаловать в {bank.name}!\n")
 
@@ -268,7 +296,9 @@ def run_bank_interface(bank):
             print("4. Пополнить счет")
             print("5. Снять деньги со счета")
             print("6. Перевести деньги")
-            print("7. Получить выписку")
+            print("7. Вывести всех пользователей")
+            print("8. Вывести все счета пользователя")
+            print("9. Получить выписку")
             print("0. Выход")
 
             choice = input("Выберите действие: ")
@@ -318,6 +348,10 @@ def run_bank_interface(bank):
 
             elif choice == "8":
                 client_id = int(input("Введите ваш ID: "))
+                my_bank.view_all_accounts_by_client_id(my_bank.users[client_id])
+
+            elif choice == "9":
+                client_id = int(input("Введите ваш ID: "))
                 bank.get_statement(client_id)
 
             else:
@@ -325,6 +359,8 @@ def run_bank_interface(bank):
 
         except Exception as error_info:
             print("Ошибка:", error_info)
+
+debugMode = input("Включить режим разработчика 0 (да) или 1 (нет)")
 
 my_bank = Bank()
 my_bank.load_from_file()
