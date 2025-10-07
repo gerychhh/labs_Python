@@ -11,7 +11,7 @@ class Bank:
 
     def create_account(self, name):
         while True:
-            client_id = random.choice(0, 1000000)
+            client_id = random.randint(0, 1000000)
             if client_id not in self.users:
                 break
 
@@ -19,7 +19,7 @@ class Bank:
         self.users[client_id] = new_client
         return client_id
 
-    def open_account(self, client_id, currency=0):
+    def open_account(self, client_id, currency="BYN"):
         if client_id not in self.users:
             raise Exception("Клиента не сущетсвует (id)")
         client = self.users[client_id]
@@ -34,6 +34,8 @@ class Bank:
 
         bank_account = BankAccount(bank_account_id, client_id, currency)
         self.accounts[bank_account_id] = bank_account
+        client.accounts_by_currency[currency] = bank_account.id
+        return bank_account.id
 
     def close_account(self, client_id, account_id):
         if client_id not in self.users:
@@ -44,8 +46,14 @@ class Bank:
         if account_id not in self.accounts:
             raise Exception("Нет счёта с таким id")
 
-        bank_account = BankAccount(account_id, client_id)
-        
+        bank_account = self.accounts[account_id]
+        if bank_account.owner_id != client_id:
+            raise Exception("Нет такого счёта у пользователя с таким id")
+        if bank_account.balance != 0:
+            raise Exception(f"Баланс не равен нулю, снимите сначала деньги со счёта (баланс счёта {bank_account.balance}, {bank_account.currency})")
+
+        del self.accounts[account_id]
+        del client.accounts_by_currency[bank_account.currency]
 
 class Client:
     def __init__(self, id, name="Bob", accounts_by_currency=None):
