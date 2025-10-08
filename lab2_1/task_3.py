@@ -7,4 +7,4 @@ Max_number = max(myList)
 
 cacheList.remove(Max_number)
 
-print(max(myList))
+print(f"Второе по величине значение из списка {max(myList)}")
