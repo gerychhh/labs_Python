@@ -9,4 +9,4 @@ for word in words:
     else:
         library_of_words[word] = 1
 
-print(library_of_words)
+print(f"(Слово : количество повторений) {library_of_words}")
