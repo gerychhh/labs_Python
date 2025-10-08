@@ -1,4 +1,4 @@
-myList = list(map(float, input("Enter a list: ").split()))
+myList = list(map(float, input("Введите список: ").split()))
 
 myList_count = {}
 for num in myList:
@@ -19,8 +19,8 @@ for num, count in myList_count.items():
     else:
         myList_not_unique.append(num)
 
-print(f"unique: {myList_unique}")
-print(f"not_unique: {myList_not_unique}")
+print(f"уникальные значения: {myList_unique}")
+print(f"неуникальные значения: {myList_not_unique}")
 
 for num in myList:
     if num.is_integer():
@@ -29,24 +29,24 @@ for num in myList:
         else:
             myList_net_chet.append(num)
 
-print(f"chet: {myList_chet}")
-print(f"net_chet: {myList_net_chet}")
+print(f"чётные значения: {myList_chet}")
+print(f"нечётные значения: {myList_net_chet}")
 
 for num in myList:
     if num < 0:
         myList_negative.append(num)
-print(f"numbers < 0: {myList_negative}")
+print(f"значения меньше нуля: {myList_negative}")
 
 for num in myList:
     if isinstance(num, float):
         myList_float.append(num)
-print(f"float: {myList_float}")
+print(f"числа с плавующей точкой: {myList_float}")
 
 summ = 0
 for num in myList:
     if num.is_integer() and int(num) % 5 == 0:
         summ += num
-print(f"summ %5: {summ}")
+print(f"сумма всех чисел кратных 5: {summ}")
 
-print(f"Max in your list {max(myList)}")
-print(f"Min in your list {min(myList)}")
+print(f"максимальное значение в списке {max(myList)}")
+print(f"минимальное значение в списке {min(myList)}")
