@@ -1,4 +1,4 @@
-myStr = input("input list: ")
+myStr = input("Введите список: ")
 
 myList = list(myStr)
 
@@ -19,4 +19,4 @@ for i, c in myCount.items():
 
 myList = newList
 
-print(f"your new list with unique numbers: {myList}")
+print(f"Ваш новый список с уникальными значениями: {myList}")
