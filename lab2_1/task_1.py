@@ -1,4 +1,4 @@
-text = input("Enter a string: ")
+text = input("Введите строку: ")
 words = text.lower().split()
 
 library_of_words = {}
