@@ -1,12 +1,10 @@
-myStr = input("input list: ")
+myStr = input("Введите строку: ")
 
 myList = list(myStr)
 
 myCount = {}
 
 myStr = ""
-
-##print(myList)
 
 for i in myList:
     if i not in myCount:
@@ -17,4 +15,4 @@ for i in myList:
 for i, c in myCount.items():
     myStr += str(i) + str(c)
 
-print(f"your short string: {myStr}")
+print(f"Сокращённый вариант строки: {myStr}")
