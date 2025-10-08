@@ -1,6 +1,6 @@
-myString1 = input("Enter a string1: ")
-myString2 = input("Enter a string2: ")
+myString1 = input("Введите строку 1: ")
+myString2 = input("Введите строку 2: ")
 if(sorted(myString1.lower()) == sorted(myString2.lower())):
-    print("True")
+    print("Являются анаграммами")
 else:
-    print("False")
+    print("Не являются анаграммами")
